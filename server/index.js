@@ -1,16 +1,27 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
-import mongoose from "mongoose";
+
 import connectDb from "./config/connectDb.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import authRouter from "./routes/auth.route.js";
 
 const app = express();
 
-const PORT = process.env.PORT || 8000;
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 
-app.get("/", (req, res) => {
-  res.send("Server is RUNNING.");
-});
+app.use(express.json());
+app.use(cookieParser());
+
+app.use("/api/auth", authRouter);
+
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
   console.log(`Server running on Port: ${PORT}`);
