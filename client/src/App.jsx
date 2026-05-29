@@ -4,10 +4,12 @@ import axios from "axios";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import { useEffect } from "react";
-
+import { useDispatch } from "react-redux";
+import { setUserData } from "./redux/userSlice.js";
 export const ServerUrl = "http://localhost:8000";
 
 export default function App() {
+  const dispatch = useDispatch();
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -15,14 +17,17 @@ export default function App() {
           withCredentials: true,
         });
 
+        dispatch(setUserData(result.data));
+
         console.log(result.data);
       } catch (error) {
         console.log(error);
+        dispatch(setUserData(null));
       }
     };
 
     getUser();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Routes>
