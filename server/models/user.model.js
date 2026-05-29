@@ -13,13 +13,13 @@ const userSchema = new mongoose.Schema(
     },
     credits: {
       type: Number,
-      default: 0,
+      default: 100,
       min: 0,
     },
   },
   { timestamps: true },
 );
 
-const User = mongoose.Model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
 export default User;

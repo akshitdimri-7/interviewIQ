@@ -6,12 +6,12 @@ import { FcGoogle } from "react-icons/fc";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../utils/firebase";
 import axios from "axios";
-import { ServerUrl } from "../App";
+import { ServerUrl } from "../App.jsx";
 import { useDispatch } from "react-redux";
-import { setUserData } from "..userSlice.js";
+import { setUserData } from "../redux/userSlice.js";
 
 const Auth = () => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const handleGoogleAuth = async () => {
     try {
       const response = await signInWithPopup(auth, provider);
@@ -28,7 +28,6 @@ const Auth = () => {
       );
 
       dispatch(setUserData(result.data));
-      
     } catch (err) {
       dispatch(setUserData(null));
     }

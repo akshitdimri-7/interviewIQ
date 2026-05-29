@@ -1,4 +1,4 @@
-import jwt, { verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const isAuth = async (req, res, next) => {
   try {
@@ -8,7 +8,7 @@ const isAuth = async (req, res, next) => {
       return res.status(400).json({ message: "User doesn't have a token." });
     }
 
-    const verifyToken = jwt.verfy(token, process.env.JWT_SECRET);
+    const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!verifyToken) {
       return res
@@ -16,7 +16,7 @@ const isAuth = async (req, res, next) => {
         .json({ message: "User doesn't have a valid token." });
     }
 
-    req.userId = verify.userId;
+    req.userId = verifyToken.userId;
 
     next();
   } catch (error) {

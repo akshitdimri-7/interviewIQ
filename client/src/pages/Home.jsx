@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   return (
-    <div>
-      Home Page
+    <div className=" min-h-screen bg -[#f3f3f3] flex flex-col">
+      <Navbar />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
