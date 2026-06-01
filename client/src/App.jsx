@@ -3,10 +3,20 @@ import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
+import InterviewPage from "./pages/InterviewPage.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUserData } from "./redux/userSlice.js";
 export const ServerUrl = "http://localhost:8000";
+import React from "react";
+import { motion } from "motion/react";
+import {
+  FaUserTie,
+  FaBriefcase,
+  FaFileUpload,
+  FaMicrophoneAlt,
+  FaChartLine,
+} from "react-icons/fa";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -34,6 +44,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/auth" element={<Auth />} />
+      <Route path="/interview" element={<InterviewPage />} />
     </Routes>
   );
 }
