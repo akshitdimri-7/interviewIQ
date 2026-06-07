@@ -28,7 +28,7 @@ const InterviewPage = () => {
         />
       )}
 
-      {step === 2 && <Step3Report report={interviewData} />}
+      {step === 3 && <Step3Report report={interviewData} />}
     </div>
   );
 };
