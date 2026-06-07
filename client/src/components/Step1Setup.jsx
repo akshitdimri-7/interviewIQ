@@ -201,10 +201,17 @@ const Step1Setup = ({ onStart }) => {
 
                 {skills.length > 0 && (
                   <div>
-                    <p className="font-medium text-gray-700 mb-1"><Skills></Skills>:</p>
+                    <p className="font-medium text-gray-700 mb-1">
+                      <Skills></Skills>:
+                    </p>
                     <div className="flex fflex-wrap gap-2">
                       {skills.map((s, i) => {
-                        <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm" key={i}>{s}</span>;
+                        <span
+                          className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm"
+                          key={i}
+                        >
+                          {s}
+                        </span>;
                       })}
                     </div>
                   </div>
