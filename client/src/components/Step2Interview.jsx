@@ -5,9 +5,9 @@ import Timer from "../components/Timer";
 import { motion } from "motion/react";
 import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 import { useRef } from "react";
+import { useEffect } from "react";
 
 function Step2Interview({ interviewData, onFinish }) {
-  const { intervieId, questions, userName } = interviewData;
   const { interviewId, questions, userName } = interviewData;
 
   const [isIntroPhase, setIsIntroPhase] = useState(true);
@@ -28,6 +28,49 @@ function Step2Interview({ interviewData, onFinish }) {
   const [subtitle, setSubtitle] = useState("");
 
   const videoRef = useRef(null);
+
+  const currentQuestion = questions[currentIndex];
+
+  useEffect(() => {
+    const loadVoices = () => {
+      const voices = window.speechSynthesis.getVoices();
+
+      if (!voices.length) return;
+
+      // Try known female voices first
+      const femaleVoice = voices.find(
+        (v) =>
+          v.name.toLowerCase().includes("zira") ||
+          v.name.toLowerCase().includes("samantha") ||
+          v.name.toLowerCase().includes("female"),
+      );
+
+      if (femaleVoice) {
+        setSelectedVoice(femaleVoice);
+        setVoiceGender("female");
+        return;
+      }
+
+      const maleVoice = voices.find(
+        (v) =>
+          v.name.toLowerCase().includes("david") ||
+          v.name.toLowerCase().includes("mark") ||
+          v.name.toLowerCase().includes("male"),
+      );
+
+      if (maleVoice) {
+        setSelectedVoice(maleVoice);
+        setVoiceGender("male");
+        return;
+      }
+
+      setSelectedVoice(voices[0]);
+      setVoiceGender("female");
+
+      loadVoices();
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-linear-to-br from-emerald-50 via-white to-teal-100 flex items-center justify-center p-4 sm:p-6">
@@ -59,11 +102,15 @@ function Step2Interview({ interviewData, onFinish }) {
             <div className="h-px bg-gray-200"></div>
             <div className="grid-grid-col-2 gap-6 text-center">
               <div>
-                <span className="text-2xl font-bold text-emerald-600">1</span>
+                <span className="text-2xl font-bold text-emerald-600">
+                  {currentIndex + 1}
+                </span>
                 <span className="text-xs text-gray-400">current ques</span>
               </div>
               <div>
-                <span className="text-2xl font-bold text-emerald-600">5</span>
+                <span className="text-2xl font-bold text-emerald-600">
+                  {questions.length}
+                </span>
                 <span className="text-xs text-gray-400">total ques</span>
               </div>
             </div>
@@ -76,17 +123,15 @@ function Step2Interview({ interviewData, onFinish }) {
           </h2>
           <div className="relative mb-6 bg-gray-50 p-4 sm:p-6 rounded-2xl border border-gray-200 shadow-sm">
             <p className="text-xs sm:text-sm text-gray-400 mg-2">
-              Question 1 of 5
+              Question {currentIndex + 1} of {questions.length}
             </p>
-            <div className="text-base sm:text-lg font-semibold text-gray-800 leading-0">
+            <div className="text-base sm:text-lg font-semibold text-gray-800 leading-relaxed">
               {" "}
-              First Question
+              {currentQuestion?.question}
             </div>
 
             <textarea
               placeholder="type your answer here"
-              name=""
-              id=""
               className="flex-1 bg-gray-100 p-4 sm:p-6 riunded-2xl resize-none outline-none border border-gray-200 focus-ring-2 focus:ring-emerald-500 transition text-gray-800"
             ></textarea>
             <div className="flex items-center gap-4 mt-6">
