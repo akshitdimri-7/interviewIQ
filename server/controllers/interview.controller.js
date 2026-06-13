@@ -388,7 +388,7 @@ export const finishInterview = async (req, res) => {
 
 export const getMyInterview = async (req, res) => {
   try {
-    const interview = await InterviewPage.findOne({ userId: req.userId })
+    const interview = await InterviewPage.find({ userId: req.userId })
       .sort({
         createdAt: -1,
       })
@@ -440,6 +440,5 @@ export const gertInterviewReport = async (req, res) => {
       correctness: Number(avgCorrectness.toFixed(1)),
       questionWiseScore: interview.questions,
     });
-    
   } catch (error) {}
 };
