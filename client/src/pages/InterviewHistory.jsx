@@ -1,11 +1,33 @@
-import React from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ServerUrl } from "../App";
 
 const InterviewHistory = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const [intervies, setInterviews] = useState();
+  const navigate = useNavigate();
 
-export default InterviewHistory
+  useEffect(() => {
+    const getMyInterviews = async () => {
+      try {
+        const result = await axios.get(
+          ServerUrl + "/api/interview/get-intrview",
+          {
+            withCredentials: true,
+          },
+        );
+
+        setInterviews(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getMyInterviews();
+  }, []);
+  return (<div>
+    
+  </div>);
+};
+
+export default InterviewHistory;

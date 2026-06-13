@@ -17,6 +17,9 @@ import {
   FaMicrophoneAlt,
   FaChartLine,
 } from "react-icons/fa";
+import InterviewHistory from "./pages/INterviewHistory.jsx";
+import Pricing from "./pages/Pricing.jsx";
+import InterviewReport from "./pages/InterviewReport.jsx";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -45,6 +48,9 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/interview" element={<InterviewPage />} />
+      <Route path="/history" element={<InterviewHistory />} />
+      <Route path="/report" element={<InterviewReport />} />
+      <Route path="/pricing" element={<Pricing />} />
     </Routes>
   );
 }
