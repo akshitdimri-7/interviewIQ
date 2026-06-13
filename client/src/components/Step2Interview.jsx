@@ -184,7 +184,7 @@ function Step2Interview({ interviewData, onFinish }) {
     if (!currentQuestion) return;
 
     if (timeLeft === 0 && !isSubmitting && !feedback) {
-      handleSubmit();
+      submitAnswer();
     }
   }, [timeLeft]);
 
