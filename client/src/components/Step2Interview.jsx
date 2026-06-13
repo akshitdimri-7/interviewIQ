@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import ServerUrl from "../App";
-import { BsArrowLeft } from "react-icons/bs";
+import { BsArrowRight } from "react-icons/bs";
 
 function Step2Interview({ interviewData, onFinish }) {
   const { interviewId, questions, userName } = interviewData;
@@ -159,10 +159,6 @@ function Step2Interview({ interviewData, onFinish }) {
       return;
     }
 
-    if (isSubmitting) {
-      return;
-    }
-
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -175,7 +171,13 @@ function Step2Interview({ interviewData, onFinish }) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isIntroPhase, currentIndex, isSubmitting]);
+  }, [isIntroPhase, currentIndex]);
+
+  useEffect(() => {
+    if (!isIntroPhase && currentQuestion) {
+      setTimeLeft(currentQuestion.timeLimit || 60);
+    }
+  }, [currentIndex]);
 
   useEffect(() => {
     if (isIntroPhase) return;
@@ -412,7 +414,7 @@ function Step2Interview({ interviewData, onFinish }) {
                 onClick={handleNext}
                 className="w-full bg-linear-to-r from-emerald-600 to-teal-500 text-white py-3 rounded-xl shadow-md hover:opacity-90 transition flex items-center justify-center gap-1"
               >
-                Next Question <BsArrowLeft size={18} />
+                Next Question <BsArrowRight size={18} />
               </button>
             </motion.div>
           )}
