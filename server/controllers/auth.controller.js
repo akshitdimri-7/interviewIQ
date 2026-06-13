@@ -1,5 +1,6 @@
 import genToken from "../config/token.js";
 import User from "../models/user.model.js";
+import Interview from "../models/interview.model.js";
 
 export const googleAuth = async (req, res) => {
   try {
@@ -43,6 +44,6 @@ export const logout = async (req, res) => {
     await res.clearCookie("token");
     return req.status(200).json({ message: "Logout successfull." });
   } catch (error) {
-    return res.status(500).json({ message: `Logut error${error}` });
+    return res.status(500).json({ message: `Logout error:${error}` });
   }
 };
